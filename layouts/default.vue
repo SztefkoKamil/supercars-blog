@@ -35,6 +35,6 @@ html {
 }
 
 .app-container {
-  padding-top: 68px;
+  padding-top: 70px;
 }
 </style>

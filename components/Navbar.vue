@@ -15,7 +15,20 @@
 </template>
 
 <style lang="css" scoped>
-.navbar a {
+.navbar {
+  min-height: 70px;
+  align-items: flex-start;
+}
+
+.navbar > a {
+  font-size: 28px;
+}
+
+.navbar-toggler {
+  margin-top: 7px;
+}
+
+.navbar ul a {
   text-align: right;
   font-size: 24px;
   margin-right: 1rem;
