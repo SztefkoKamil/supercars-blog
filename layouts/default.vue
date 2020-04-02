@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <Navbar />
     <nuxt />
   </div>
@@ -32,5 +32,9 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.app-container {
+  padding-top: 68px;
 }
 </style>
