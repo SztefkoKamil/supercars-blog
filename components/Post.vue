@@ -1,5 +1,5 @@
 <template>
-  <b-list-group-item class="border-0 mb-3">
+  <b-list-group-item tag="li" class="border-0 mb-3">
     <b-card
       no-body
       :img-src="postData.images[0]"
