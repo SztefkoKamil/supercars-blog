@@ -23,10 +23,10 @@ export default {
     return {
       sliding: null,
       slides: [
-        'https://picsum.photos/1024/576/?image=52',
-        'https://picsum.photos/1024/576/?image=54',
-        'https://picsum.photos/1024/576/?image=58',
-        'https://picsum.photos/1024/576/?image=55'
+        require('@/assets/images/Lamborghini Aventador SVJ Roadster-3.jpg'),
+        require('@/assets/images/Ferrari F8 Tributo-0.jpg'),
+        require('@/assets/images/Hennessey Venom F5-2.jpg'),
+        require('@/assets/images/Pininfarina Battista-0.jpg')
       ]
     }
   },
