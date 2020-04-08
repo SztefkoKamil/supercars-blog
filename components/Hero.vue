@@ -1,5 +1,5 @@
 <template>
-  <header class="position-relative">
+  <header class="position-relative bg-dark" style="min-height: 55vw;">
     <Carousel />
     <div class="title-container">
       <h1>Welcome to the Supercars blog</h1>
