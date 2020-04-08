@@ -23,12 +23,13 @@ export default {
   components: {
     Post
   },
-  async asyncData() {
+  async asyncData({ store }) {
     const url = process.env.BACKEND_URL + '/posts'
 
     try {
       const response = await fetch(url)
-      const posts = await response.json()
+      const rawPosts = await response.json()
+      const posts = await store.dispatch('preparePosts', rawPosts)
       return { posts, fetchError: false }
     } catch (err) {
       return { posts: [], fetchError: true }
