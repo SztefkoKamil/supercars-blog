@@ -24,8 +24,8 @@
         }}</b-card-title>
       </b-card-header>
       <b-card-body>
-        <div v-for="i in post.text.length" :key="i" class="mb-4">
-          <b-card-text>{{ post.text[i - 1] }}</b-card-text>
+        <div v-for="i in post.content.length" :key="i" class="mb-4">
+          <b-card-text>{{ post.content[i - 1] }}</b-card-text>
           <b-card-img :src="post.images[i].url" :alt="post.title"></b-card-img>
         </div>
         <b-card-img
@@ -47,57 +47,17 @@
 </template>
 
 <script>
-const makeFullImagesPaths = (images) => {
-  const fullPathImages = images.map((img) => {
-    const fullPath = process.env.BACKEND_URL + img.url
-    img.url = fullPath
-    return img
-  })
-  return fullPathImages
-}
-
-const sortImages = (images) => {
-  const numbered = images.map((img) => {
-    const dotIndex = img.name.lastIndexOf('.')
-    const extTrimed = img.name.slice(0, dotIndex)
-    const dashIndex = extTrimed.lastIndexOf('-')
-    img.nr = extTrimed.slice(dashIndex + 1)
-    return img
-  })
-  const sorted = numbered.sort((a, b) => {
-    return +a.nr - +b.nr
-  })
-  return sorted
-}
-
-const divideContent = (content) => {
-  const dividedContent = content.split('\n\n')
-  return dividedContent
-}
-
-const preparePost = (rawPost) => {
-  const post = rawPost
-  const imagesWithPaths = makeFullImagesPaths(rawPost.images)
-  const sortedImages = sortImages(imagesWithPaths)
-  post.images = sortedImages
-  post.text = divideContent(post.content)
-  return post
-}
-
-const prepareRestImages = (images, textLength) => {
-  if (images.length <= textLength) return []
-  return images.slice(textLength + 1)
-}
-
 export default {
-  async asyncData({ params, app }) {
+  async asyncData({ params, store }) {
     const url = process.env.BACKEND_URL + '/posts/' + params.id
-
     try {
       const response = await fetch(url)
       const rawPost = await response.json()
-      const post = preparePost(rawPost)
-      const restImages = prepareRestImages(post.images, post.text.length)
+      const post = await store.dispatch('prepareOnePost', rawPost)
+      const restImages = await store.dispatch('prepareRestImages', {
+        images: post.images,
+        contentLength: post.content.length
+      })
       return { post, restImages, fetchError: false }
     } catch (err) {
       return { fetchError: true }
