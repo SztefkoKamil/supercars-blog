@@ -1,6 +1,6 @@
 <template>
   <main class="container pb-5">
-    <h1 class="text-center my-4">All posts for supercars fans</h1>
+    <h1 class="text-center my-4">See our supercars!</h1>
     <b-list-group tag="ul">
       <b-list-group-item v-if="fetchError">
         <h3 class="py-3 text-danger">
