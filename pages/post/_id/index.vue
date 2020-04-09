@@ -43,6 +43,33 @@
         <b-card-text>{{ post.author }}</b-card-text>
       </b-card-footer>
     </b-card>
+    <b-btn
+      pill
+      variant="danger"
+      class="position-fixed p-1"
+      style="left:20px; bottom:30px;"
+      @click="back"
+    >
+      <svg
+        class="bi bi-arrow-left-short"
+        width="34px"
+        height="34px"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M7.854 4.646a.5.5 0 010 .708L5.207 8l2.647 2.646a.5.5 0 01-.708.708l-3-3a.5.5 0 010-.708l3-3a.5.5 0 01.708 0z"
+          clip-rule="evenodd"
+        />
+        <path
+          fill-rule="evenodd"
+          d="M4.5 8a.5.5 0 01.5-.5h6.5a.5.5 0 010 1H5a.5.5 0 01-.5-.5z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </b-btn>
   </main>
 </template>
 
@@ -61,6 +88,11 @@ export default {
       return { post, restImages, fetchError: false }
     } catch (err) {
       return { fetchError: true }
+    }
+  },
+  methods: {
+    back() {
+      history.back()
     }
   }
 }
