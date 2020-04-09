@@ -13,6 +13,14 @@
       </b-list-group-item>
       <Post v-for="post in posts" :key="post.id" :post-data="post" />
     </b-list-group>
+    <b-pagination-nav
+      :link-gen="linkGen"
+      align="center"
+      limit="3"
+      :number-of-pages="pages"
+      :pills="true"
+      use-router
+    ></b-pagination-nav>
   </main>
 </template>
 
@@ -23,16 +31,31 @@ export default {
   components: {
     Post
   },
-  async asyncData({ store }) {
+  async asyncData({ store, params }) {
     const url = process.env.BACKEND_URL + '/posts'
 
     try {
       const response = await fetch(url)
       const rawPosts = await response.json()
       const posts = await store.dispatch('preparePosts', rawPosts)
-      return { posts, fetchError: false }
+
+      const postsPerPage = 5
+      const pages = Math.ceil(rawPosts.length / postsPerPage)
+      const start = (params.page - 1) * postsPerPage
+      const postsToShow = posts.splice(start, postsPerPage)
+
+      return {
+        posts: postsToShow,
+        pages,
+        fetchError: false
+      }
     } catch (err) {
       return { posts: [], fetchError: true }
+    }
+  },
+  methods: {
+    linkGen(pageNum) {
+      return `/posts/${pageNum}`
     }
   }
 }
