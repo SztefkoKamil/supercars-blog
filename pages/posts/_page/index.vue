@@ -57,6 +57,11 @@ export default {
     linkGen(pageNum) {
       return `/posts/${pageNum}`
     }
+  },
+  head() {
+    return {
+      title: 'Posts - Supercars blog'
+    }
   }
 }
 </script>

@@ -63,3 +63,13 @@
     </p>
   </main>
 </template>
+
+<script>
+export default {
+  head() {
+    return {
+      title: 'About - Supercars blog'
+    }
+  }
+}
+</script>

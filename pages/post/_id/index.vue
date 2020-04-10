@@ -74,6 +74,8 @@
 </template>
 
 <script>
+let postTitle = ''
+
 export default {
   async asyncData({ params, store }) {
     const url = process.env.BACKEND_URL + '/posts/' + params.id
@@ -85,6 +87,8 @@ export default {
         images: post.images,
         contentLength: post.content.length
       })
+      postTitle = post.title
+
       return { post, restImages, fetchError: false }
     } catch (err) {
       return { fetchError: true }
@@ -93,6 +97,11 @@ export default {
   methods: {
     back() {
       history.back()
+    }
+  },
+  head() {
+    return {
+      title: postTitle + ' - Supercars blog'
     }
   }
 }

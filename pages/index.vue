@@ -42,6 +42,11 @@ export default {
     } catch (err) {
       return { posts: [], fetchError: true }
     }
+  },
+  head() {
+    return {
+      title: 'Home - Supercars blog'
+    }
   }
 }
 </script>
