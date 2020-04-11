@@ -31,12 +31,11 @@ export default {
     Post
   },
   async asyncData({ store }) {
-    const url = process.env.BACKEND_URL + '/posts'
+    const url = process.env.BACKEND_URL + '/posts?_limit=3'
 
     try {
       const response = await fetch(url)
       const rawPosts = await response.json()
-      rawPosts.splice(3)
       const posts = await store.dispatch('preparePosts', rawPosts)
       return { posts, fetchError: false }
     } catch (err) {
