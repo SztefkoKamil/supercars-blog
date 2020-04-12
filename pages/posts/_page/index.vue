@@ -32,20 +32,22 @@ export default {
     Post
   },
   async asyncData({ store, params }) {
-    const url = process.env.BACKEND_URL + '/posts'
+    const postsPerPage = 5
+    const start = (params.page - 1) * postsPerPage
+    const getPostsUrl = `${process.env.BACKEND_URL}/posts?_start=${start}&_limit=${postsPerPage}`
+    const countPostsUrl = process.env.BACKEND_URL + '/posts/count'
 
     try {
-      const response = await fetch(url)
-      const rawPosts = await response.json()
+      const postsRes = await fetch(getPostsUrl)
+      const rawPosts = await postsRes.json()
       const posts = await store.dispatch('preparePosts', rawPosts)
 
-      const postsPerPage = 5
-      const pages = Math.ceil(rawPosts.length / postsPerPage)
-      const start = (params.page - 1) * postsPerPage
-      const postsToShow = posts.splice(start, postsPerPage)
+      const countRes = await fetch(countPostsUrl)
+      const allPosts = await countRes.json()
+      const pages = Math.ceil(allPosts / postsPerPage)
 
       return {
-        posts: postsToShow,
+        posts,
         pages,
         fetchError: false
       }
